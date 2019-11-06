@@ -5,29 +5,29 @@ name: # File metadata, to be printed by the simulator
 
 all_bases: # Read all base points from file
   class: ems.datasets.base.BaseSet
-  filename: ./simple/bases.csv
+  filename: ./examples/simple/bases.csv
 
 demands: # Read all demand points from file
   class: ems.datasets.demand.DemandSet
-  filename: ./simple/demand_points.csv
+  filename: ./examples/simple/demand_points.csv
 
 tt: # Travel times matrix between all bases and all demands
   class: ems.datasets.times.TravelTimes
-  filename: ./simple/times.csv
+  filename: ./examples/simple/times.csv
   origins: $all_bases
   destinations: $demands
 
 bases: # Read 5 bases from file
   class: ems.datasets.base.BaseSet
-  filename: ./simple/bases_subset.csv
+  filename: ./examples/simple/bases_subset.csv
 
 ambulances: # Read 5 ambulances from file (1 ambulance at each base)
   class: ems.datasets.ambulance.AmbulanceSet
-  filename: ./simple/ambulances.csv
+  filename: ./examples/simple/ambulances.csv
 
 hospitals: # Reads 3 hospitals from file
   class: ems.datasets.hospital.HospitalSet
-  filename: ./simple/hospitals.csv
+  filename: ./examples/simple/hospitals.csv
 
 travel_duration_generator: # Travel times between events estimated using travel times matrix
     class: ems.generators.duration.TravelTimeDurationGenerator
@@ -40,7 +40,7 @@ random_duration_generator: # Randomly generates durations between 5 to 10 minute
   upper_bound: 10
 
 hospital_selector: # Fastest hospital chosen
-  class: ems.algorithms.hospital_selectors.FastestHospitalSelector
+  class: ems.algorithms.hospital.FastestHospitalSelector
   hospital_set: $hospitals
   travel_times: $tt
 
@@ -53,18 +53,18 @@ event_generator: # Generates random events for each case
 
 cases: # Reads cases from file
   class: ems.datasets.case.CSVCaseSet
-  filename: ./simple/cases.csv
+  filename: ./examples/simple/cases.csv
   event_generator: $event_generator
 
 ambulance_selector: # Selects fastest ambulance
-    class: ems.algorithms.selection.BestTravelTime
+    class: ems.algorithms.ambulance.BestTravelTime
     travel_times: $tt
 
 metric_aggregator: # Computes and stores any amount of metrics during the simulation
-  class: ems.analysis.metrics.MetricAggregator
+  class: ems.analysis.metric.MetricAggregator
   metrics:
-    - class: ems.analysis.metrics.TotalDelay
-    - class: ems.analysis.metrics.CountPending
+    - class: ems.analysis.metric.TotalDelay
+    - class: ems.analysis.metric.CountPending
 
 simulator: # Simulation to run
   class: ems.simulators.simulator.EventDispatcherSimulator
