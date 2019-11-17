@@ -1,76 +1,44 @@
-# Ambulance Dispatch Simulation
+# EMS Simulator Demos
 
-A library to do ambulance dispatch simulation and analysis.
+A sample project that displays two simple working examples of the [EMS Simulator library](https://github.com/EMSTrack/EMS-Simulator). You may use the binder link below to access a Jupyter notebook to play around, or clone this repo and install the packages in requirements.txt manually.
 
-# Installation
+# Examples
 
-There are many ways to get the simulator to work. See [The Installation Instructions](INSTALL.md).
+## Minimal
 
-# Learning how to run the simulator
+The minimal example defines the following setup:
 
-`python3 run-simulation --help`
+Resources
+- 6 pre-defined bases and 2 pre-defined hospitals (directly in the YAML config) in the San Diego area
+- Each base hosts a single operational ambulance
 
-Among other things, you will see this:
+Travel Times
+- Travel times between locations in the city are randomly selected between 10 and 20 minutes
 
-`usage: run-simulation [-h] config_file` 
+Cases
+- 100 cases will occur randomly within a 2 kilometer circular radius in the San Diego area
+- Time interval between incidents is uniformly selected to be between 8 to 18 minutes.
 
-The program expects you to configure the specifications of the simulation and state where those specifications are. 
+Policies
+- A randomly selected available ambulance will attend to the next emergency
 
-## YAML Configuration Files
+## Simple
 
-The configuration file is in YAML format, and it contains user specifications for how the simulation runs. For specification details, an upcoming paper will detail that. For now, take a look 
-at `configurations/example.yaml`. 
+Resources
+- Base and hospital defintions are sourced from an external CSV file
+- 5 pre-defined bases and 3 pre-defined hospitals in the San Diego area
+- Each base hosts a single operational ambulance
 
-# Run an example simulation
+Travel Times
+- An external CSV file maps the travel times between each of 600 origin points to each of 600 destination points. Computing travel time between point A and point B involves finding the closest origin to point A, finding the closest destination to point B, and retrieving the corresponding time.
 
-#### The simulation currently must be run from the repository itself. 
+Cases
+- Cases are sourced from an external CSV file
+- 500 cases will occur randomly within a 2 kilometer rectangular area in the San Diego area
+- Time interval between incidents is uniformly selected to be between 8 to 18 minutes.
 
-`pwd` should return your directory and `/Algorithms/`. For example, here's mine: 
-
-`/Users/vectflux/ReEMS/Algorithms`
-
-#### Let's run the simulation.
-
-`python3 run-simulation configurations/example.yaml`
-
-If you got an error like `results does not exist`, make a new subdirectory:
-
-`mkdir results`
-
-Don't worry about accidentally pushing your own results. This folder is in the `.gitignore` file. 
-
-#### On successful simulation, you will find the results saved under `./results/`
-
-`ls ./results/`
-
-
-# Run a simple simulation
-
-`python3 run-simulation configurations/simple.yaml`  
-
-#### You will find that this fails! 
-
-That's because this particular configuration uses certain historical data files that do not exist **yet**. 
-
-You will need to run one of our scripts to produce some synthetic input data. These inputs are examples of well-formatted CSV files that EMS organizations can export their historical data to. Alternatively, another data reader can be implemented that accepts data in a different way. 
-
-`[Insert command for script here.]`
-
-#### Now if you run the simulation again, the historical data is read into the simulation. 
-
-`python3 run-simulation configurations/simple.yaml`  
-
-#### On successful simulation, you will find the results saved under `./results/` under a different name.
-
-`ls ./results/`
-
-# Custom Simulation
-
-- To run a custom simulation, create a new YAML file or copy an existing one. 
-
-- Specify the requirements for the simulation (look to the other YAMLs for an example). Additional extensions for the framework can also be specified here.
-
-`python run.py simple.yaml`
+Policies
+- A randomly selected available ambulance will attend to the next emergency
 
 ## Run on binder
 
