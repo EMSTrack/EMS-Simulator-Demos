@@ -8,7 +8,6 @@ matplotlib
 shapely
 pyyaml
 IPython
-pprint
 pyre-check
 flake8
 pylint
